@@ -63,7 +63,7 @@
 (defn -main [& {:as args}]
   (println "WebSocketのサーバーを起動します") 
   (web/run ws-routes
-    (merge {"host" (env :demo-web-host1), "port" (env :demo-web-port1)}
+    (merge {"host" (env :host), "port" (env :port)}
            args)
     
     )
