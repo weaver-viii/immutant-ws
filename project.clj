@@ -1,4 +1,4 @@
-(defproject immutant-ws "0.1.0-SNAPSHOT"
+(defproject immutant-ws "1.0.0-SNAPSHOT"
   :description "Simple wildfly server"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.immutant/web "2.0.0"]
