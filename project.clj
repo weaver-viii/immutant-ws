@@ -15,7 +15,5 @@
   :main immutant-ws.server
   :plugins [[lein-immutant "2.0.0"]]
   :uberjar-name "immutant-ws-standalone.jar"
-  ;;:target-path "target/%s"
   :profiles {:uberjar {:aot [immutant-ws.server]}})
-
 
