@@ -12,6 +12,7 @@
                  [cheshire "5.3.1"]
                  [environ "1.0.0"]
                  ]
+  :min-lein-version "2.5.0"
   :main immutant-ws.server
   :plugins [[lein-immutant "2.0.0"]]
   :uberjar-name "immutant-ws-standalone.jar"
