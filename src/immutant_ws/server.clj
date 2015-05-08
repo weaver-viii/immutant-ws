@@ -6,6 +6,7 @@
             [ring.util.response :refer [response]]                       
             [compojure.core :refer [defroutes GET routes]]
             [compojure.route :refer [not-found resources ]]
+            [environ.core :refer [env]]
             )
   (:gen-class)
   )
@@ -60,8 +61,13 @@
   )
 
 (defn -main [& {:as args}]
-  (println "WebSocketのサーバーを起動します")  
-  (web/run ws-routes {:host "localhost" :port 8080 :path "/test" })
+  (println "WebSocketのサーバーを起動します") 
+  (web/run ws-routes
+    (merge {"host" (env :demo-web-host1), "port" (env :demo-web-port1)}
+           args)
+    
+    )
+  ;;(web/run ws-routes {:host "localhost" :port 8080 :path "/test" })
   )
 
 (defn app0 [request]

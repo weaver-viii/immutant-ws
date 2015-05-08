@@ -10,11 +10,12 @@
                  [ring/ring-devel "1.3.2"]
                  [compojure "1.3.1"]
                  [cheshire "5.3.1"]
+                 [environ "1.0.0"]
                  ]
   :main immutant-ws.server
-  :plugins [[lein-immutant "2.0.0-beta1"]]
+  :plugins [[lein-immutant "2.0.0"]]
   :uberjar-name "immutant-ws-standalone.jar"
-  :target-path "target/%s"
+  ;;:target-path "target/%s"
   :profiles {:uberjar {:aot [immutant-ws.server]}})
 
 
