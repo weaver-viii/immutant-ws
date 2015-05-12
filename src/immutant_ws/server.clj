@@ -77,13 +77,13 @@
   (async/as-channel request
     {:on-open 
      (fn [stream]
-       (dotimes [i 10]
+       (dotimes [i 1000]
          (async/send! 
           stream 
-         (str (machine-data "tag-1" 1000))
+         (str (machine-data "tag-1" 100))
 ;;          (str "メッセージを送っています " (inc i) "回目") 
           {:close? (= i 9)})
-         (Thread/sleep 1000)))}
+         (Thread/sleep 100)))}
    
 ))
 
