@@ -73,7 +73,7 @@
   (GET "/app1" [] app1)
   (GET "/app2" [] app2)
   (GET "/app3" [] app3)
-  (GET "/app4" [] app4)
+  ;;(GET "/app4" [] app4)
   (not-found "<p>404 指定されたページはありません.</p>")
   )
 
