@@ -7,9 +7,9 @@
             [compojure.core :refer [defroutes GET routes]]
             [compojure.route :refer [not-found resources ]]
             [cheshire.core :refer [generate-string]]
-            [environ.core :refer [env]]
-            (:gen-class)
-            ))
+            [environ.core :refer [env]]            
+            )
+    (:gen-class))
             
 
 (defn app1 [request]
@@ -73,7 +73,7 @@
   (GET "/app1" [] app1)
   (GET "/app2" [] app2)
   (GET "/app3" [] app3)
-  ;;(GET "/app4" [] app4)
+  (GET "/app4" [] app4)
   (not-found "<p>404 指定されたページはありません.</p>")
   )
 
