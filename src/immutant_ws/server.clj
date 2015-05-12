@@ -6,11 +6,11 @@
             [ring.util.response :refer [response]]                       
             [compojure.core :refer [defroutes GET routes]]
             [compojure.route :refer [not-found resources ]]
+            [cheshire.core :refer [generate-string]]
             [environ.core :refer [env]]
-            )
-  (:gen-class)
-  )
-
+            (:gen-class)
+            ))
+            
 
 (defn app1 [request]
   (async/as-channel request
@@ -53,10 +53,27 @@
       )}   
    ))
 
+
+(defn app4 [request]
+  (sse/as-channel 
+   request
+   {:on-open 
+    (fn [stream]
+      (dotimes [i 1000]
+        (sse/send! 
+         stream 
+         (str (inc i) ":" (generate-string {:tag-id 1 :date (java.util.Date.) :value (format "%2.3f" (rand 100))})))
+        (Thread/sleep 1000))
+      ;; サーバー側からクローズする       
+      (sse/send! stream {:event "close", :データ "おしまい"}) 
+      )}   
+   ))
+
 (defroutes ws-routes
   (GET "/app1" [] app1)
   (GET "/app2" [] app2)
-  (GET "/app3" [] app3)  
+  (GET "/app3" [] app3)
+  (GET "/app4" [] app4)
   (not-found "<p>404 指定されたページはありません.</p>")
   )
 
@@ -78,7 +95,7 @@
       {:on-message (fn [ch msg]
                  (async/send! ch (str "こんにちは､" msg "さん")))})
 
-(defn app4 [request]
+(defn app5 [request]
   (if (:websocket? request)
     (async/as-channel request callbacks)
     (do
