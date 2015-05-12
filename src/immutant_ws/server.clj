@@ -53,6 +53,10 @@
       )}   
    ))
 
+(defn machine-data 
+  [tag-name range]
+  (generate-string {:tag-id tag-name :date (java.util.Date.) :value (format "%2.3f" (rand range))}))
+
 ;; マシンデータのシミュレーション
 (defn app4 [request]
   (sse/as-channel 
@@ -62,18 +66,33 @@
       (dotimes [i 1000]
         (sse/send! 
          stream 
-         (str (inc i) ":" (generate-string {:tag-id 1 :date (java.util.Date.) :value (format "%2.3f" (rand 100))})))
+         (str (inc i) ":" (machine-data "tag-1" 100)))
         (Thread/sleep 1000))
       ;; サーバー側からクローズする       
       (sse/send! stream {:event "close", :データ "おしまい"}) 
       )}   
    ))
 
+(defn app5 [request]
+  (async/as-channel request
+    {:on-open 
+     (fn [stream]
+       (dotimes [i 10]
+         (async/send! 
+          stream 
+         (str (machine-data "tag-1" 1000))
+;;          (str "メッセージを送っています " (inc i) "回目") 
+          {:close? (= i 9)})
+         (Thread/sleep 1000)))}
+   
+))
+
 (defroutes ws-routes
   (GET "/app1" [] app1)
   (GET "/app2" [] app2)
   (GET "/app3" [] app3)
   (GET "/app4" [] app4)
+  (GET "/app5" [] app5)
   (not-found "<p>404 指定されたページはありません.</p>")
   )
 
@@ -95,7 +114,7 @@
       {:on-message (fn [ch msg]
                  (async/send! ch (str "こんにちは､" msg "さん")))})
 
-(defn app5 [request]
+(defn app0-1 [request]
   (if (:websocket? request)
     (async/as-channel request callbacks)
     (do
