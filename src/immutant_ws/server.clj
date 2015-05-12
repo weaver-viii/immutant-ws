@@ -53,7 +53,7 @@
       )}   
    ))
 
-
+;; マシンデータのシミュレーション
 (defn app4 [request]
   (sse/as-channel 
    request
