@@ -82,8 +82,8 @@
           stream 
          (str (machine-data "tag-1" 100))
 ;;          (str "メッセージを送っています " (inc i) "回目") 
-          {:close? (= i 9)})
-         (Thread/sleep 100)))}
+          {:close? (= i 1000)})
+         (Thread/sleep 10)))}
    
 ))
 
